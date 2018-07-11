@@ -17,6 +17,7 @@ class Robot extends Component {
                 time: toNomalTime(Date.parse(new Date()) / 1000),
                 inputMsg: "",
                 userInfo:{},
+                robotRequestQuery:{},
                 isScrollToBottom: true
              }
         }
@@ -36,7 +37,6 @@ class Robot extends Component {
             }, 200)
         }
         sendMessage =  async (value) => {
-    
             this.setState({
                 inputMsg: value
             },()=>{
@@ -44,8 +44,20 @@ class Robot extends Component {
                 this.props.insertUserMsg(
                     { message: this.state.inputMsg }
                 );
+
                 this.props.getRobotMsg(
-                    { message: this.state.inputMsg }
+                    {
+                        "reqType":0,
+                        "perception": {
+                            "inputText": {
+                                "text": this.state.inputMsg
+                            }
+                        },
+                        "userInfo": {
+                            "apiKey": "92febb91673740c2814911a6c16dbcc5",
+                            "userId": "123456"
+                        }
+                    }
                 )
             })
 

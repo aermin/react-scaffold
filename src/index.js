@@ -20,6 +20,19 @@ if (module.hot) {
 
 
 axios.defaults.baseURL = 'http://localhost:3000'
+axios.interceptors.request.use(
+	config => {
+		const token = localStorage.getItem('userToken');
+		if (token) {
+			// Bearer是JWT的认证头部信息
+			config.headers.common['Authorization'] = 'Bearer ' + token;
+		}
+		return config;
+	},
+	error => {
+		return Promise.reject(error);
+	}
+);
 
 function renderWithHotReload(RootElement) {
     ReactDom.render(
