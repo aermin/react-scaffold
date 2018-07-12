@@ -26,6 +26,11 @@ const devConfig = {
         contentBase: path.join(__dirname, './dist'), //让WEB服务器运行静态资源（index.html）
         historyApiFallback: true,
         host: '127.0.0.1',
+        proxy: {
+            "/": "http://openapi.tuling123.com/openapi/",
+            secure: false, // 处理https
+            changeOrigin: true,  // 跨域
+        }
     }
 };
 
