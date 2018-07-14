@@ -11,25 +11,23 @@ import {
 } from "../../utils/transformTime";
 
 class Robot extends Component {
-	constructor(){
-		super();
-         	this.state = {
+        constructor(){
+            super();
+            this.state = {
                 time: toNomalTime(Date.parse(new Date()) / 1000),
                 inputMsg: "",
-                userInfo:{},
+                userInfo: {
+                    avatar: 'http://ooytyiziz.bkt.clouddn.com/people1.jpg',
+                    name: '吃瓜群众'
+                },
                 robotRequestQuery:{},
                 isScrollToBottom: true
-             }
+            }
         }
 		refresh() {
 			setTimeout(() => {
 				window.scrollTo(0, document.body.scrollHeight + 10000)
 			}, 0)
-        }
-        componentWillMount(){
-            this.setState({
-                userInfo:JSON.parse(localStorage.getItem("userInfo"))
-            }) 
         }
         componentDidMount(){
             setTimeout(() => {
@@ -47,16 +45,8 @@ class Robot extends Component {
 
                 this.props.getRobotMsg(
                     {
-                        "reqType":0,
-                        "perception": {
-                            "inputText": {
-                                "text": this.state.inputMsg
-                            }
-                        },
-                        "userInfo": {
-                            "apiKey": "92febb91673740c2814911a6c16dbcc5",
-                            "userId": "123456"
-                        }
+                        "key":"92febb91673740c2814911a6c16dbcc5",
+                        "info":this.state.inputMsg
                     }
                 )
             })
@@ -65,10 +55,11 @@ class Robot extends Component {
 
         render() {
             console.log("this.props.state.robot", this.props.state.robot)
+            console.log('this.state', this.state);
             const listItems = this.props.state.robot.map((msg,index) =>
                  <li key={index}>
                  {msg.user && <ChatItem  img="http://ooytyiziz.bkt.clouddn.com/robot.gif" msg={msg.message} name={msg.user} time={this.state.time} />}
-                 {!msg.user && <ChatItem me="true" img={this.state.userInfo.avator}  msg={msg.message} name={this.state.userInfo.name} time={this.state.time} />}
+                 {!msg.user && <ChatItem me="true" img={this.state.userInfo.avatar}  msg={msg.message} name={this.state.userInfo.name} time={this.state.time} />}
               </li>
             );
             return (

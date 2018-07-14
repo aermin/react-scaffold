@@ -11,21 +11,19 @@ export const insertUserMsg = data => {
 
 export const getRobotMsg = data => {
       // 返回函数，异步dispatch
-      console.log('getRobotMsg', data);
     return async dispatch => {
-            axios.post("/api/v2", data).then(res => {
-                console.log('res2333', res);
+            axios.post("/api", data).then(res => {
                 if (res) {
-                    if (res.data.data.code === 100000) {
+                    if (res.data.code === 100000) {
                         dispatch({
                             type: GET_ROBOT_MSG,
                             data:{
-                                message:res.data.data.text,
+                                message:res.data.text,
                                 user: "robot"
                             }
                           })
-                    } else if (res.data.data.code === 200000) {
-                        let message = res.data.data.text + res.data.data.url;
+                    } else if (res.data.code === 200000) {
+                        let message = res.data.text + res.data.url;
                         dispatch({
                             type: GET_ROBOT_MSG,
                             data:{
@@ -33,7 +31,7 @@ export const getRobotMsg = data => {
                                 user: "robot"
                             }
                           })
-                    } else if (res.data.data.code === 302000) {
+                    } else if (res.data.code === 302000) {
                         dispatch({
                             type: GET_ROBOT_MSG,
                             data:{

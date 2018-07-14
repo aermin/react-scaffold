@@ -27,7 +27,7 @@ const devConfig = {
         historyApiFallback: true,
         host: '127.0.0.1',
         proxy: {
-            "/": "http://openapi.tuling123.com/openapi/",
+            "/": "http://openapi.tuling123.com/openapi/",  // 要代理的对方服务器的地址
             secure: false, // 处理https
             changeOrigin: true,  // 跨域
         }
